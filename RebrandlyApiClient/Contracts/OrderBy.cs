@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RebrandlyApiClient.Contracts
+namespace Rebrandly.Contracts
 {
     public enum OrderBy
     {

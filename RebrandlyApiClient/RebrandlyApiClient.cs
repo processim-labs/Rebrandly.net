@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
-using RebrandlyApiClient.Contracts;
+using Rebrandly.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -9,9 +9,9 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Net.Http.Headers;
-using RebrandlyApiClient.Model;
+using Rebrandly.Model;
 
-namespace RebrandlyApiClient
+namespace Rebrandly
 {
     public class RebrandlyApiClient
     {

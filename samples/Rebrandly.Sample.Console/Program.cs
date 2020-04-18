@@ -1,8 +1,8 @@
-﻿using Rebrandly.Models;
+﻿using Rebrandly;
 using System;
 using System.Threading.Tasks;
 
-namespace Rebrandly.Sample
+namespace RebrandlySample.Sample
 {
     class Program
     {
@@ -12,7 +12,7 @@ namespace Rebrandly.Sample
             Console.ReadLine();
             RebrandlyConfiguration.ApiKey = "907842e1f23c4615b9643d55bdce94ef";
 
-            var rebradlyServices = new RebrandlyService();
+            RebrandlyService rebradlyServices = new RebrandlyService();
             var response = await rebradlyServices.GetLink("52edba6afc154a99b7ee177172f66ff8");
             Console.WriteLine(response);
             Console.ReadLine();

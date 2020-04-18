@@ -2,7 +2,9 @@
 using Rebrandly.Contracts;
 using Rebrandly.Exceptions;
 using Rebrandly.Helpers;
+using Rebrandly.Infrastructure.Interfaces;
 using Rebrandly.Models;
+using Rebrandly.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -11,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Rebrandly
+namespace Rebrandly.Infrastructure
 {
     /// <summary>
     /// A Rebrandly client, used to issue requests to Rebrandly's API and deserialize responses.

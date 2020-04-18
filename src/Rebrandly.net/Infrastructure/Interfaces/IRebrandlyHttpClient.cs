@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Rebrandly
+namespace Rebrandly.Infrastructure.Interfaces
 {
     /// <summary>
     /// Interface for HTTP clients used to make requests to Rebrandly's API.

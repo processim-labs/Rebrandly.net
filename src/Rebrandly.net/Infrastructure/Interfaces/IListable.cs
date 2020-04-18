@@ -1,5 +1,5 @@
 ﻿using Rebrandly.Contracts;
-using Rebrandly.Models;
+using Rebrandly.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

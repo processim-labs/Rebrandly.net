@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Rebrandly.Contracts;
+using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -8,7 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Rebrandly.Models
+namespace Rebrandly.Models.Entities
 {
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class RebrandlyEntity : IRebrandlyEntity

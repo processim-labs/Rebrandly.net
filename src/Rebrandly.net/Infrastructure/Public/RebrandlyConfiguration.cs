@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Rebrandly.Exceptions;
 using Rebrandly.Helpers;
+using Rebrandly.Infrastructure;
+using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

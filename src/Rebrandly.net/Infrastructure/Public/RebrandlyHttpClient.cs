@@ -1,4 +1,5 @@
 ﻿using Rebrandly.Contracts;
+using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Rebrandly
+namespace Rebrandly.Infrastructure
 {
     /// <summary>
     /// Standard client to make requests to Rebrandly's API, using

@@ -2,6 +2,7 @@
 using Rebrandly.Contracts;
 using Rebrandly.Infrastructure.Interfaces;
 using Rebrandly.Models;
+using Rebrandly.Models.Entities;
 using Rebrandly.Services;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 ﻿using Rebrandly.Exceptions;
+using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Rebrandly
+namespace Rebrandly.Contracts
 {
     /// <summary>
     /// Represents a request to Rebrandly's API.

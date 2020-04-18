@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Rebrandly.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

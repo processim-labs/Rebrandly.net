@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Models
+namespace Rebrandly.Models.Entities
 {
     public class RebrandlyList<T> : RebrandlyEntity<RebrandlyList<T>>, IEnumerable<T>
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebrandly.net", "Rebrandly.net\Rebrandly.net.csproj", "{F7649996-5C61-4C09-8E0A-273AE8E05D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebrandly.Sample.Console", "..\samples\Rebrandly.Sample.Console\Rebrandly.Sample.Console.csproj", "{AD93AC7C-E611-44BD-AC62-BAD723B2DEF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebrandly.Sample.Console", "..\samples\Rebrandly.Sample.Console\Rebrandly.Sample.Console.csproj", "{AD93AC7C-E611-44BD-AC62-BAD723B2DEF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

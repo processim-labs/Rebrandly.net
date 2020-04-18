@@ -4,7 +4,25 @@
     <TargetFrameworks>netstandard2.0;net461;net45</TargetFrameworks>
     <AssemblyName>Rebrandly.net</AssemblyName>
     <RootNamespace>Rebrandly</RootNamespace>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/processim-labs/RebrandlyApiClientDotNet</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/processim-labs/RebrandlyApiClientDotNet</RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageTags>rebrandly; netstandard; csharp; shorterner; url</PackageTags>
+    <Description>The Rebrandly .NET library, supporting .NET Standard 2.0+, .NET Core 2.0+, and .NET Framework 4.5+.</Description>
+    <Authors>Wilson Vargas; Manuel Ruh; Hans Gatgens</Authors>
+    <Company>Processim Labs</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\logo.png" />
+    <None Include="images\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>    
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

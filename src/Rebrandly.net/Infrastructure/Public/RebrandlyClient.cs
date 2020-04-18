@@ -80,6 +80,7 @@ namespace Rebrandly.Infrastructure
         {
             var request = new RebrandlyRequest(this, method, path, null, null);
             var response = await this.HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            response.Content = (path == "/links/") ? @"{""data"":" + response.Content + "}" : response.Content;
             return ProcessResponse<T>(response);
         }
 
@@ -94,6 +95,7 @@ namespace Rebrandly.Infrastructure
         {
             var request = new RebrandlyRequest(this, method, path, queryParams, null);
             var response = await this.HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            response.Content = (path == "/links/") ? @"{""data"":" + response.Content +"}" : response.Content;
             return ProcessResponse<T>(response);
         }
 

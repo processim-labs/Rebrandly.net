@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Rebrandly.Models
 {
+    [JsonObject]
     public class Link : RebrandlyEntity<Link>
     {
         [JsonProperty("createdAt")]

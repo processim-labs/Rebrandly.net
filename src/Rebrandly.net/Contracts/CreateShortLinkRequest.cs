@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using RebrandlyApiClient.Model;
+using Rebrandly.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RebrandlyApiClient.Contracts
+namespace Rebrandly.Contracts
 {
     public class CreateShortLinkRequest
     {

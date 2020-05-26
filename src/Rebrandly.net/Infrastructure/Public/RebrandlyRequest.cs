@@ -1,5 +1,8 @@
 ﻿using Rebrandly.Exceptions;
+using Rebrandly.Infrastructure.FormEncoding;
 using Rebrandly.Infrastructure.Interfaces;
+using Rebrandly.Services.Base;
+using Rebrandly.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,30 +10,30 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Rebrandly.Contracts
+namespace Rebrandly
 {
     /// <summary>
     /// Represents a request to Rebrandly's API.
     /// </summary>
     public class RebrandlyRequest
     {
-        private readonly string requestBody;
+        private readonly BaseOptions options;
 
         /// <summary>Initializes a new instance of the <see cref="RebrandlyRequest"/> class.</summary>
         /// <param name="client">The client creating the request.</param>
         /// <param name="method">The HTTP method.</param>
         /// <param name="path">The path of the request.</param>
-        /// <param name="queryParams">The parameters of the request.</param>
-        /// <param name="requestBody">The body of the request.</param>
-        public RebrandlyRequest(IRebrandlyClient client, HttpMethod method, string path, Dictionary<string, string> queryParams, string requestBody)
+        /// <param name="options">The parameters of the request.</param>
+        /// <param name="requestOptions">The special modifiers of the request.</param>
+        public RebrandlyRequest(IRebrandlyClient client, HttpMethod method, string path, BaseOptions options, RequestOptions requestOptions)
         {
             if (client == null)
             {
                 throw new ArgumentNullException(nameof(client));
             }
-            this.requestBody = requestBody;
+            this.options = options;
             Method = method;
-            Uri = BuildUri(client, method, path, queryParams);
+            Uri = BuildUri(client, method, path, options, requestOptions);
             AuthorizationHeader = BuildAuthorizationHeader(client);
         }
 
@@ -53,7 +56,7 @@ namespace Rebrandly.Contracts
         /// For non-POST requests, this will be <c>null</c>.
         /// </summary>
         /// <remarks>This getter creates a new instance every time it is called.</remarks>
-        public HttpContent Content => BuildContent(this.Method, this.requestBody);
+        public HttpContent Content => BuildContent(this.Method, options);
 
         /// <summary>Returns a string that represents the <see cref="RebrandlyRequest"/>.</summary>
         /// <returns>A string that represents the <see cref="RebrandlyRequest"/>.</returns>
@@ -70,25 +73,24 @@ namespace Rebrandly.Contracts
             IRebrandlyClient client,
             HttpMethod method,
             string path,
-            Dictionary<string, string> queryParams)
+            BaseOptions options,
+            RequestOptions requestOptions)
         {
-            StringBuilder sb = new StringBuilder(client.ApiBase.TrimEnd('/'));
-            sb.Append(path.TrimEnd('/'));
+            StringBuilder sb = new StringBuilder();
+            sb.Append(requestOptions?.BaseUrl ?? client.ApiBase);
+            sb.Append(path);
 
-            if (queryParams != null && queryParams.Count > 0)
+            if ((method != HttpMethod.Post) && (options != null))
             {
-                if (method != HttpMethod.Post)
+                string queryString = FormEncoder.CreateQueryString(options);
+                if (!string.IsNullOrEmpty(queryString))
                 {
-                    string parameterText = string.Join("&", queryParams.Where(x => !string.IsNullOrEmpty(x.Value)).Select(x => x.Key + "=" + x.Value).ToArray());
-                    if (parameterText.Length > 0)
-                    {
-                        sb.Append("?");
-                        sb.Append(parameterText);
-                    }
-                }                
+                    sb.Append("?");
+                    sb.Append(queryString);
+                }
             }
-            Uri uri = new Uri(sb.ToString());
-            return uri;
+
+            return new Uri(sb.ToString());
         }
 
         private static AuthenticationHeaderValue BuildAuthorizationHeader(IRebrandlyClient client)
@@ -108,14 +110,14 @@ namespace Rebrandly.Contracts
             return new AuthenticationHeaderValue("apikey", apiKey);
         }
 
-        private static HttpContent BuildContent(HttpMethod method, string requestBody)
+        private static HttpContent BuildContent(HttpMethod method, BaseOptions options)
         {
             if (method != HttpMethod.Post)
             {
                 return null;
             }
 
-            return new StringContent(requestBody, Encoding.UTF8, "application/json");
+            return FormEncoder.CreateHttpContent(options);
         }
     }
 }

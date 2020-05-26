@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Rebrandly.Models.Entities;
+using Rebrandly.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Models
+namespace Rebrandly.Entities
 {
     [JsonObject]
     public class Link : RebrandlyEntity<Link>

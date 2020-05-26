@@ -1,6 +1,5 @@
 ﻿using Rebrandly;
-using Rebrandly.Contracts;
-using Rebrandly.Models;
+using Rebrandly.Entities.Enums;
 using System;
 using System.Threading.Tasks;
 
@@ -13,17 +12,14 @@ namespace RebrandlySample.Sample
             Console.WriteLine("Press Enter");
             Console.ReadLine();
 
-            RebrandlyConfiguration.ApiKey = "ENTER YOUR API KEY";
+            RebrandlyConfiguration.ApiKey = "907842e1f23c4615b9643d55bdce94ef";
 
-            RebrandlyService rebrandlyService = new RebrandlyService();
+            LinkService rebrandlyLinkService = new LinkService();
 
-            var response = await rebrandlyService.CreateShortLink(new CreateShortLinkRequest
+            var response = await rebrandlyLinkService.Create(new LinkCreateOptions
             {
-                Destination = "https://www.processimlabs.com/about-us",
-                Domain = new Domain
-                {
-                    FullName = "rebrand.ly"
-                }
+                Title = "New Short link",
+                Destination = "https://www.processimlabs.com/products"
             });
 
             Console.WriteLine(response);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Contracts
+namespace Rebrandly.Entities.Enums
 {
     public enum OrderBy
     {

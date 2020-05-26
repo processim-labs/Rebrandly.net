@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Rebrandly.Helpers
+namespace Rebrandly.Utils
 {
-    public class StringHelpers
+    internal static class StringUtils
     {
         private static Regex whitespaceRegex = new Regex(@"\s", RegexOptions.CultureInvariant);
-
         public static bool ContainsWhitespace(string str)
         {
             if (str == null)

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Rebrandly.Contracts;
 using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Rebrandly.Models.Entities
+namespace Rebrandly.Entities.Base
 {
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class RebrandlyEntity : IRebrandlyEntity
@@ -69,7 +68,7 @@ namespace Rebrandly.Models.Entities
         /// <returns>The deserialized Rebrandly object from the JSON string.</returns>
         public static T FromJson(string value)
         {
-            return RebrandlyEntity.FromJson<T>(value);
+            return FromJson<T>(value);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Rebrandly.Exceptions;
-using Rebrandly.Helpers;
 using Rebrandly.Infrastructure;
 using Rebrandly.Infrastructure.Interfaces;
+using Rebrandly.Utils;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -119,7 +119,7 @@ namespace Rebrandly
                 throw new RebrandlyException(message);
             }
 
-            if (ApiKey != null && StringHelpers.ContainsWhitespace(ApiKey))
+            if (ApiKey != null && StringUtils.ContainsWhitespace(ApiKey))
             {
                 var message = "Your API key is invalid, as it contains whitespace. You can "
                     + "double-check your API key from the Rebrandly Dashboard. See "

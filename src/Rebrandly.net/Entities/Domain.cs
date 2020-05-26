@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Models
+namespace Rebrandly.Entities
 {
     public class Domain
     {
@@ -17,6 +17,9 @@ namespace Rebrandly.Models
 
         [JsonProperty("active")]
         public bool IsActive { get; set; }
+
+        [JsonProperty("ref")]
+        public string Reference { get; set; }
 
         [JsonProperty("topLevelDomain")]
         public string TopLevelDomain { get; set; }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Models.Entities
+namespace Rebrandly.Entities.Base
 {
     [JsonObject]
     public class RebrandlyList<T> : RebrandlyEntity<RebrandlyList<T>>, IEnumerable<T>
@@ -14,7 +14,7 @@ namespace Rebrandly.Models.Entities
         /// </summary>
         /// 
         [JsonProperty("data")]
-        public List<T> Data { get; set; } 
+        public List<T> Data { get; set; }
 
         public IEnumerator<T> GetEnumerator()
         {

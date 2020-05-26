@@ -1,5 +1,4 @@
-﻿using Rebrandly.Contracts;
-using Rebrandly.Infrastructure.Interfaces;
+﻿using Rebrandly.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -88,11 +87,8 @@ namespace Rebrandly.Infrastructure
                 throw requestException;
             }
 
-            return new RebrandlyResponse()
-            {
-                Content = await response.Content.ReadAsStringAsync().ConfigureAwait(false),
-                StatusCode = response.StatusCode
-            };
+            string contentResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new RebrandlyResponse(response.StatusCode, response.Headers, contentResponse);
         }
 
         private HttpRequestMessage BuildRequestMessage(RebrandlyRequest request)

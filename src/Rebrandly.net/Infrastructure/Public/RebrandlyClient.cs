@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
-using Rebrandly.Contracts;
+using Rebrandly.Entities.Base;
 using Rebrandly.Exceptions;
-using Rebrandly.Helpers;
 using Rebrandly.Infrastructure.Interfaces;
-using Rebrandly.Models;
-using Rebrandly.Models.Entities;
+using Rebrandly.Services.Base;
+using Rebrandly.Services.Common;
+using Rebrandly.Utils;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -45,19 +45,19 @@ namespace Rebrandly.Infrastructure
                 throw new ArgumentException("API key cannot be the empty string.", nameof(apiKey));
             }
 
-            if (apiKey != null && StringHelpers.ContainsWhitespace(apiKey))
+            if (apiKey != null && StringUtils.ContainsWhitespace(apiKey))
             {
                 throw new ArgumentException("API key cannot contain whitespace.", nameof(apiKey));
             }
 
-            this.ApiKey = apiKey;
-            this.ClientId = clientId;
-            this.HttpClient = httpClient ?? BuildDefaultHttpClient();
-            this.ApiBase = apiBase ?? DefaultApiBase;
+            ApiKey = apiKey;
+            ClientId = clientId;
+            HttpClient = httpClient ?? BuildDefaultHttpClient();
+            ApiBase = apiBase ?? DefaultApiBase;
         }
 
         /// <summary>Default base URL for Rebrandly's API.</summary>
-        public static string DefaultApiBase => "https://api.rebrandly.com/v1/";
+        public static string DefaultApiBase => "https://api.rebrandly.com/v1";
 
 
         /// <summary>Gets the base URL for Rebrandly's API.</summary>
@@ -76,26 +76,15 @@ namespace Rebrandly.Infrastructure
         /// <value>The <see cref="IRebrandlyHttpClient"/> used to send HTTP requests.</value>
         public IRebrandlyHttpClient HttpClient { get; }
 
-        public async Task<T> RequestAsync<T>(HttpMethod method, string path, CancellationToken cancellationToken = default) where T : IRebrandlyEntity
+        public async Task<T> RequestAsync<T>(
+            HttpMethod method,
+            string path,
+            BaseOptions options,
+            RequestOptions requestOptions,
+            CancellationToken cancellationToken = default) where T : IRebrandlyEntity
         {
-            var request = new RebrandlyRequest(this, method, path, null, null);
-            var response = await this.HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
-            response.Content = (path == "/links/") ? @"{""data"":" + response.Content + "}" : response.Content;
-            return ProcessResponse<T>(response);
-        }
-
-        public async Task<T> RequestAsync<T>(HttpMethod method, string requestBody, string path, CancellationToken cancellationToken = default) where T : IRebrandlyEntity
-        {
-            var request = new RebrandlyRequest(this, method, path, null, requestBody);
-            var response = await this.HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
-            return ProcessResponse<T>(response);
-        }
-
-        public async Task<T> RequestAsync<T>(HttpMethod method, Dictionary<string, string> queryParams, string path, CancellationToken cancellationToken = default) where T : IRebrandlyEntity
-        {
-            var request = new RebrandlyRequest(this, method, path, queryParams, null);
-            var response = await this.HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
-            response.Content = (path == "/links/") ? @"{""data"":" + response.Content +"}" : response.Content;
+            var request = new RebrandlyRequest(this, method, path, options, requestOptions);
+            var response = await HttpClient.MakeRequestAsync(request, cancellationToken).ConfigureAwait(false);
             return ProcessResponse<T>(response);
         }
 
@@ -114,7 +103,7 @@ namespace Rebrandly.Infrastructure
             T obj;
             try
             {
-                obj = RebrandlyEntity.FromJson<T>(response.Content);
+                obj = RebrandlyEntity.FromJson<T>((response.Content.StartsWith("[")) ? @"{""data"":" + response.Content + "}" : response.Content);
             }
             catch (Newtonsoft.Json.JsonException)
             {

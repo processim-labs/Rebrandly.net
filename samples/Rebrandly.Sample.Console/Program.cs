@@ -12,7 +12,7 @@ namespace RebrandlySample.Sample
             Console.WriteLine("Press Enter");
             Console.ReadLine();
 
-            RebrandlyConfiguration.ApiKey = "907842e1f23c4615b9643d55bdce94ef";
+            RebrandlyConfiguration.ApiKey = "YOUR API KEY";
 
             LinkService rebrandlyLinkService = new LinkService();
 

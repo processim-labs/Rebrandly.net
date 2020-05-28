@@ -12,6 +12,6 @@ namespace Rebrandly.Services.Interfaces
 {
     public interface ICountable<TEntity, TOptions> where TEntity : IRebrandlyEntity where TOptions : BaseOptions, new()
     {
-        Task<RebrandlyCount<TEntity>> Count(TOptions createOptions, RequestOptions requestOptions = null, CancellationToken cancellationToken = default);
+        Task<RebrandlyCount<TEntity>> Count(TOptions countableOptions, RequestOptions requestOptions = null, CancellationToken cancellationToken = default);
     }
 }

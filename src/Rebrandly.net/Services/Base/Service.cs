@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Rebrandly.Services.Base
 {
-    public abstract class Service<TEntityReturned, TEntityCountableReturned> where TEntityReturned : IRebrandlyEntity where TEntityCountableReturned : IRebrandlyEntity
+    public abstract class Service<TEntityReturned> where TEntityReturned : IRebrandlyEntity
     {
         private IRebrandlyClient client;
 
@@ -71,9 +71,9 @@ namespace Rebrandly.Services.Base
             return Request<TEntityReturned>(HttpMethod.Get, InstanceUrl(id), options, requestOptions, cancellationToken);
         }
 
-        protected Task<TEntityCountableReturned> CountEntities(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        protected Task<RebrandlyCount<TEntityReturned>> CountEntities(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
-            return Request<TEntityCountableReturned>(HttpMethod.Get, ClassUrl() + "/count", options, requestOptions, cancellationToken);
+            return Request<RebrandlyCount<TEntityReturned>>(HttpMethod.Get, ClassUrl() + "/count", options, requestOptions, cancellationToken);
         }
 
         protected Task<RebrandlyList<TEntityReturned>> ListEntities(ListOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)

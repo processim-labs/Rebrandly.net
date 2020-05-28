@@ -14,12 +14,13 @@ using Rebrandly.Services.Link;
 
 namespace Rebrandly
 {
-    public class LinkService : Service<Link, LinkCount>,
+    public class LinkService : Service<Link>,
         ICreatable<Link, LinkCreateOptions>,
         IUpdatable<Link, LinkUpdateOptions>,
         IListable<Link, LinkListOptions>,
         IDeletable<Link, LinkDeleteOptions>,
-        IRetrievable<Link, LinkGetOptions>
+        IRetrievable<Link, LinkGetOptions>,
+        ICountable<Link, LinkCountOptions>
     {
         public LinkService() : base(null)
         {
@@ -56,7 +57,7 @@ namespace Rebrandly
             return DeleteEntity(linkId, options, requestOptions, cancellationToken);
         }
 
-        public virtual Task<LinkCount> Count(CountOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<RebrandlyCount<Link>> Count(LinkCountOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
             return CountEntities(options, requestOptions, cancellationToken);
         }

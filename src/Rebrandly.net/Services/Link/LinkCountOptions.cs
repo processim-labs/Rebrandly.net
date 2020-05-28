@@ -6,9 +6,12 @@ using System.Text;
 
 namespace Rebrandly
 {
-    public class CountOptions : BaseOptions
+    public class LinkCountOptions : BaseOptions
     {
         [JsonProperty("favourite")]
         public bool Favourite { get; set; }
+
+        [JsonProperty("domain.id")]
+        public string Id { get; set; }
     }
 }

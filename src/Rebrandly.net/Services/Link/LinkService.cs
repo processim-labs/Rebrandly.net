@@ -10,11 +10,13 @@ using System.Net.Http;
 using Rebrandly.Entities;
 using Rebrandly.Entities.Base;
 using Rebrandly.Services.Interfaces;
+using Rebrandly.Services.Link;
 
 namespace Rebrandly
 {
     public class LinkService : Service<Link, LinkCount>,
         ICreatable<Link, LinkCreateOptions>,
+        IUpdatable<Link, LinkUpdateOptions>,
         IListable<Link, LinkListOptions>,
         IDeletable<Link, LinkDeleteOptions>,
         IRetrievable<Link, LinkGetOptions>
@@ -32,6 +34,11 @@ namespace Rebrandly
         public virtual Task<Link> Create(LinkCreateOptions options, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
             return CreateEntity(options, requestOptions, cancellationToken);
+        }
+
+        public virtual Task<Link> Update(string linkId, LinkUpdateOptions options, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        {
+            return UpdateEntity(linkId, options, requestOptions, cancellationToken);
         }
 
         public virtual Task<Link> Get(string tokenId, LinkGetOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)

@@ -56,6 +56,11 @@ namespace Rebrandly.Services.Base
             return Request<TEntityReturned>(HttpMethod.Post, ClassUrl(), options, requestOptions, cancellationToken);
         }
 
+        protected Task<TEntityReturned> UpdateEntity(string id, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request(HttpMethod.Post, InstanceUrl(id), options, requestOptions, cancellationToken);
+        }
+
         protected Task<TEntityReturned> DeleteEntity(string id, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
             return Request<TEntityReturned>(HttpMethod.Delete, InstanceUrl(id), options, requestOptions, cancellationToken);

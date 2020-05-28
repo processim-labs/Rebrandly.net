@@ -41,9 +41,9 @@ namespace Rebrandly
             return UpdateEntity(linkId, options, requestOptions, cancellationToken);
         }
 
-        public virtual Task<Link> Get(string tokenId, LinkGetOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<Link> Get(string linkId, LinkGetOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return GetEntity(tokenId, options, requestOptions, cancellationToken);
+            return GetEntity(linkId, options, requestOptions, cancellationToken);
         }
 
         public virtual Task<RebrandlyList<Link>> List(LinkListOptions listOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
@@ -51,14 +51,14 @@ namespace Rebrandly
             return ListEntities(listOptions, requestOptions, cancellationToken);
         }
 
-        public virtual Task<Link> Delete(string customerId, LinkDeleteOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<Link> Delete(string linkId, LinkDeleteOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return DeleteEntity(customerId, options, requestOptions, cancellationToken);
+            return DeleteEntity(linkId, options, requestOptions, cancellationToken);
         }
 
         public virtual Task<LinkCount> Count(CountOptions options = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
-            return RequestAdditional(HttpMethod.Get, $"{ClassUrl()}/count", options, requestOptions, cancellationToken);
+            return CountEntities(options, requestOptions, cancellationToken);
         }
     }
 }

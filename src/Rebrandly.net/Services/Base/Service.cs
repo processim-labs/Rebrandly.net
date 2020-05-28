@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Rebrandly.Services.Base
 {
-    public abstract class Service<TEntityReturned, TAdditionalEntityReturned> where TEntityReturned : IRebrandlyEntity where TAdditionalEntityReturned : IRebrandlyEntity
+    public abstract class Service<TEntityReturned, TEntityCountableReturned> where TEntityReturned : IRebrandlyEntity where TEntityCountableReturned : IRebrandlyEntity
     {
         private IRebrandlyClient client;
 
@@ -71,6 +71,11 @@ namespace Rebrandly.Services.Base
             return Request<TEntityReturned>(HttpMethod.Get, InstanceUrl(id), options, requestOptions, cancellationToken);
         }
 
+        protected Task<TEntityCountableReturned> CountEntities(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request<TEntityCountableReturned>(HttpMethod.Get, ClassUrl() + "/count", options, requestOptions, cancellationToken);
+        }
+
         protected Task<RebrandlyList<TEntityReturned>> ListEntities(ListOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
             return Request<RebrandlyList<TEntityReturned>>(HttpMethod.Get, ClassUrl() + "/", options, requestOptions, cancellationToken);
@@ -81,16 +86,11 @@ namespace Rebrandly.Services.Base
             return Request<TEntityReturned>(method, path, options, requestOptions, cancellationToken);
         }
 
-        protected Task<TAdditionalEntityReturned> RequestAdditional(HttpMethod method, string path, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken = default)
-        {
-            return Request<TAdditionalEntityReturned>(method, path, options, requestOptions, cancellationToken);
-        }
-
         protected async Task<T> Request<T>(HttpMethod method, string path, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken = default) where T : IRebrandlyEntity
         {
             requestOptions = SetupRequestOptions(requestOptions);
             return await Client.RequestAsync<T>(method, path, options, requestOptions, cancellationToken).ConfigureAwait(false);
-        }       
+        }
 
         protected RequestOptions SetupRequestOptions(RequestOptions requestOptions)
         {

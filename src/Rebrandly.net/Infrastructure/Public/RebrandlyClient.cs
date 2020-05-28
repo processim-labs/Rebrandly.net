@@ -110,8 +110,6 @@ namespace Rebrandly.Infrastructure
                 throw BuildInvalidResponseException(response);
             }
 
-            obj.RebrandlyResponse = response;
-
             return obj;
         }
 

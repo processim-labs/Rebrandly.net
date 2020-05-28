@@ -13,10 +13,6 @@ namespace Rebrandly.Entities.Base
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class RebrandlyEntity : IRebrandlyEntity
     {
-        [JsonIgnore]
-        public RebrandlyResponse RebrandlyResponse { get; set; }
-
-
         /// <summary>Deserializes the JSON to the specified Rebrandly object type.</summary>
         /// <typeparam name="T">The type of the Rebrandly object to deserialize to.</typeparam>
         /// <param name="value">The object to deserialize.</param>

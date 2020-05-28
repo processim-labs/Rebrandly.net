@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Rebrandly.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rebrandly.Entities
+namespace Rebrandly.Entities.Base
 {
-    public class LinkCount : RebrandlyEntity<LinkCount>
+    [JsonObject]
+    public class RebrandlyCount<T> : RebrandlyEntity<RebrandlyCount<T>>
     {
         [JsonProperty("count")]
         public long Count { get; set; }

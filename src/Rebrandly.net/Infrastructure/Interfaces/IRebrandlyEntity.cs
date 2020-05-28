@@ -9,6 +9,5 @@ namespace Rebrandly.Infrastructure.Interfaces
     /// </summary>
     public interface IRebrandlyEntity
     {
-        RebrandlyResponse RebrandlyResponse { get; set; }
     }
 }

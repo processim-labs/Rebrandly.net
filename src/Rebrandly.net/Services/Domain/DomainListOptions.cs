@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Rebrandly
 {
-    public class DomainListOption : ListOptions
+    public class DomainListOptions : ListOptions
     {
         [JsonProperty ("active")]
         public bool Active { get; set; }

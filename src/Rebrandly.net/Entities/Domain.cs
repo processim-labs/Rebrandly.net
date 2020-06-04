@@ -9,7 +9,8 @@ namespace Rebrandly.Entities
     [JsonObject]
     public class Domain : RebrandlyEntity<Domain>
     {
-        public string CreatedAt { get; set; }
+        [JsonProperty("createdAt")]
+        public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("fullName")]
         public string FullName { get; set; }
@@ -30,6 +31,6 @@ namespace Rebrandly.Entities
         public string Type { get; set; }
 
         [JsonProperty("updatedAt")]
-        public string UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }

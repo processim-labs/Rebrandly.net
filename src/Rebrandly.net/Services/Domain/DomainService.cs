@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 namespace Rebrandly
 {
     public class DomainService : Service<Domain>,
-        IRetrievable<Domain, DomainGetOption>,
-        IListable<Domain, DomainListOption>,
+        IRetrievable<Domain, DomainGetOptions>,
+        IListable<Domain, DomainListOptions>,
         ICountable<Domain, DomainCountOptions>
     {
         public DomainService() : base(null)
@@ -32,12 +32,12 @@ namespace Rebrandly
             return CountEntities(countableOptions, requestOptions, cancellationToken);
         }
 
-        public virtual Task<Domain> Get(string id, DomainGetOption retrieveOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<Domain> Get(string id, DomainGetOptions retrieveOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
             return GetEntity(id, retrieveOptions, requestOptions, cancellationToken);
         }
 
-        public virtual Task<RebrandlyList<Domain>> List(DomainListOption listOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
+        public virtual Task<RebrandlyList<Domain>> List(DomainListOptions listOptions = null, RequestOptions requestOptions = null, CancellationToken cancellationToken = default)
         {
             return ListEntities(listOptions, requestOptions, cancellationToken);
         }

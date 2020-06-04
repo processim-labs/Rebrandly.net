@@ -71,6 +71,11 @@ namespace Rebrandly.Services.Base
             return Request<TEntityReturned>(HttpMethod.Get, InstanceUrl(id), options, requestOptions, cancellationToken);
         }
 
+        protected Task<TEntityReturned> GetEntity(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request<TEntityReturned>(HttpMethod.Get, ClassUrl(), options, requestOptions, cancellationToken);
+        }
+
         protected Task<RebrandlyCount<TEntityReturned>> CountEntities(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
             return Request<RebrandlyCount<TEntityReturned>>(HttpMethod.Get, ClassUrl() + "/count", options, requestOptions, cancellationToken);

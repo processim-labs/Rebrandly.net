@@ -51,6 +51,16 @@ namespace Rebrandly.Services.Base
             set => this.client = value;
         }
 
+        protected Task<TEntityReturned> AttachEntity(string firstId,string secondId, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request<TEntityReturned>(HttpMethod.Post, BuildUrl(firstId, secondId), options, requestOptions, cancellationToken);
+        }
+
+        protected Task<TEntityReturned> DetachEntity(string firstId, string secondId, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request<TEntityReturned>(HttpMethod.Post, BuildUrl(firstId, secondId), options, requestOptions, cancellationToken);
+        }
+
         protected Task<TEntityReturned> CreateEntity(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
             return Request<TEntityReturned>(HttpMethod.Post, ClassUrl(), options, requestOptions, cancellationToken);
@@ -69,6 +79,11 @@ namespace Rebrandly.Services.Base
         protected Task<TEntityReturned> GetEntity(string id, BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
         {
             return Request<TEntityReturned>(HttpMethod.Get, InstanceUrl(id), options, requestOptions, cancellationToken);
+        }
+
+        protected Task<TEntityReturned> GetEntity(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
+        {
+            return Request<TEntityReturned>(HttpMethod.Get, ClassUrl(), options, requestOptions, cancellationToken);
         }
 
         protected Task<RebrandlyCount<TEntityReturned>> CountEntities(BaseOptions options, RequestOptions requestOptions, CancellationToken cancellationToken)
@@ -104,12 +119,12 @@ namespace Rebrandly.Services.Base
             return requestOptions;
         }
 
-        protected virtual string ClassUrl()
+        private string ClassUrl()
         {
             return BasePath;
         }
 
-        protected virtual string InstanceUrl(string id)
+        private string InstanceUrl(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -120,5 +135,18 @@ namespace Rebrandly.Services.Base
 
             return $"{ClassUrl()}/{WebUtility.UrlEncode(id)}";
         }
+
+        private string BuildUrl(string firstId, string secondId)
+        {
+            if (string.IsNullOrWhiteSpace(firstId) || string.IsNullOrWhiteSpace(secondId))
+            {
+                throw new ArgumentException(
+                    "The resource ID cannot be null or whitespace.",
+                    nameof(firstId));
+            }
+
+            return $"links/{WebUtility.UrlEncode(firstId)}/{ClassUrl()}/{WebUtility.UrlEncode(secondId)}";
+        }
+
     }
 }

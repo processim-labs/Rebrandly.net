@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Rebrandly
 {
-    public class DomainGetOption : BaseOptions
+    public class DomainGetOptions : BaseOptions
     {
     }
 }

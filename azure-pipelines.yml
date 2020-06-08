@@ -1,0 +1,48 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  majorVersion: 1
+  minorVersion: 0
+  patchVersion: $[counter(variables['build.sourcebranchname'], 0)]
+  NugetPackageVersion: $(majorVersion).$(minorVersion).$(patchVersion)
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  projectPath: 'src/Rebrandly.net/Rebrandly.net.csproj'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: MSBuild@1
+  displayName: Build Solution
+  inputs:
+    solution: $(projectPath)
+    configuration: $(buildConfiguration)
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+
+- task: MSBuild@1
+  displayName: Pack NuGet
+  inputs:
+    solution: $(projectPath)
+    configuration: 'Release'
+    msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath=$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish the package'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
+    publishLocation: 'Container'
